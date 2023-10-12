@@ -1,9 +1,8 @@
 import os
+from dotenv import load_dotenv
 
 print(os.environ.get("PWD"))
 print(os.environ.get("SECRET"))
-
-from dotenv import load_dotenv
 
 # .envを環境変数として読み込む
 # .envが存在しない場合でもエラーにはならない
