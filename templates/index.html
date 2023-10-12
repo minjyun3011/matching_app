@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>プロフィール入力</title>
+</head>
+<body>
+    <h1>プロフィール入力</h1>
+    <form action="/submit_profile" method="post">
+        <label for="name">名前:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="age">年齢:</label>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="occupation">職業:</label>
+        <input type="text" id="occupation" name="occupation" required><br>
+
+        <label for="interests">興味あるトピック:</label>
+        <input type="text" id="interests" name="interests" required><br>
+
+        <label for="info_source">情報収集手段:</label>
+        <input type="text" id="info_source" name="info_source" required><br>
+
+        <label for="book_title">話したい本のタイトル:</label>
+        <input type="text" id="book_title" name="book_title" required><br>
+
+        <label for="topic_theme">トピックテーマ:</label>
+        <textarea id="topic_theme" name="topic_theme" rows="4" required></textarea><br>
+
+        <input type="submit" value="プロフィールを保存">
+    </form>
+</body>
+</html>
