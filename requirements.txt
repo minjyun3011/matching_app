@@ -7,3 +7,5 @@ MarkupSafe==2.1.3
 peewee==3.16.3
 python-dotenv==1.0.0
 Werkzeug==3.0.0
+spacy==3.0.6  # spacyのバージョンを指定
+scikit-learn==0.24.2  # scikit-learnのバージョンを指定

@@ -1,4 +1,5 @@
 import os
+import datetime
 import logging
 from playhouse.db_url import connect
 from dotenv import load_dotenv
@@ -30,10 +31,11 @@ class Profile(Model):
     name = CharField()
     age = CharField()
     occupation = CharField()
-    interests = CharField()
-    means = CharField()
-    book_title = CharField()
-    topic_theme = CharField()
+    info_source = CharField()
+    type_of_communication = CharField()
+    talk_contents_title = CharField()
+    your_objection = CharField()
+    other_topic_theme = CharField()
 
     class Meta:
         database = db

@@ -1,10 +1,12 @@
 <html>
 <head>
     <title>プロフィール入力</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 <body>
     <h1>プロフィール入力</h1>
-    <form action="/submit_profile" method="post">
+    <form action="/" method="post">
         <label for="name">名前:</label>
         <input type="text" id="name" name="name" required><br>
 
@@ -14,17 +16,20 @@
         <label for="occupation">職業:</label>
         <input type="text" id="occupation" name="occupation" required><br>
 
-        <label for="interests">興味あるトピック:</label>
-        <input type="text" id="interests" name="interests" required><br>
-
-        <label for="info_source">情報収集手段:</label>
+        <label for="info_source">普段どうやって情報や知識をインプットしていますか？:</label>
         <input type="text" id="info_source" name="info_source" required><br>
 
-        <label for="book_title">話したい本のタイトル:</label>
-        <input type="text" id="book_title" name="book_title" required><br>
+        <label for="type_of_communication">どんなやりとりをお望みですか？:</label>
+        <input type="text" id="type_of_communication" name="type_of_communication" required><br>
 
-        <label for="topic_theme">トピックテーマ:</label>
-        <textarea id="topic_theme" name="topic_theme" rows="4" required></textarea><br>
+        <label for="talk_contents_title">トークテーマにしたいコンテンツのタイトル</label>
+        <input type="text" id="talk_contents_title" name="talk_contents_title" required><br>
+
+        <label for="your_objection">どんな目標があなたにはありますか？:</label>
+        <textarea id="your_objection" name="your_objection" rows="3" required></textarea><br>
+
+        <label for="other_topic_theme">トピックテーマ:</label>
+        <textarea id="other_topic_theme" name="other_topic_theme" rows="2" required></textarea><br>
 
         <input type="submit" value="プロフィールを保存">
     </form>
