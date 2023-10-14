@@ -1,3 +1,4 @@
+import time
 from flask import Flask, render_template, request, redirect, url_for
 from peewee import Model, CharField, SqliteDatabase
 from matching_algorithm import perform_matching
@@ -45,6 +46,7 @@ def submit_profile():
     your_objection = request.form["your_objection"]
     other_topic_theme = request.form["other_topic_theme"]
 
+
     # データベースにプロフィール情報を保存
     profile = Profile.create(
         name=name,
@@ -60,8 +62,9 @@ def submit_profile():
     # マッチングアルゴリズムを実行
     matches = perform_matching(profile)
 
-    
+    # return redirect("/loading")
     return render_template("matching.html", profiles=matches)
+
     # マッチング結果を"Thank You"ページに渡してリダイレクト
     matches_str = ",".join(matches)  # マッッチしたユーザーをカンマで結合
     return redirect(
@@ -79,6 +82,10 @@ def submit_profile():
         )
     )
 
+@app.route("/loading")
+def loading():
+    time.sleep(3)  # 3秒待機
+    return render_template("loading.html")
 
 @app.route("/thank_you")
 def thank_you():
