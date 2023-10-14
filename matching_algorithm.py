@@ -7,10 +7,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 nlp = spacy.load("en_core_web_sm")
 
 
-def calculate_nlp_similarity(profile1, profile2):
+def calculate_nlp_similarity(profile1: Profile, profile2):
     # プロフィールのテキスト情報をspaCyで処理
-    doc1 = nlp(profile1.text)
-    doc2 = nlp(profile2.text)
+    doc1 = nlp(
+        f"{profile1.type_of_communication} {profile1.talk_contents_title} {profile1.other_topic_theme}"
+    )
+    doc2 = nlp(
+        f"{profile2.type_of_communication} {profile2.talk_contents_title} {profile2.other_topic_theme}"
+    )
 
     # spaCyの類似度スコアを計算
     similarity_score = doc1.similarity(doc2)
@@ -34,8 +38,8 @@ def match_users(user_profiles, user_id, num_matches=3):
             nlp_similarity = calculate_nlp_similarity(user_profile, other_user_profile)
 
             # TF-IDFベースの類似度を計算
-            user_profile_text = user_profile.text
-            other_user_profile_text = other_user_profile.text
+            user_profile_text = user_profile.text()
+            other_user_profile_text = other_user_profile.text()
             tfidf_matrix = extract_tfidf_features([user_profile_text, other_user_profile_text])
             tfidf_similarity = cosine_similarity(tfidf_matrix)
 
@@ -64,8 +68,10 @@ def perform_matching(profile):
         nlp_similarity = calculate_nlp_similarity(profile, other_profile)
 
         # TF-IDFベースの類似度を計算
-        profile_text = profile.text
-        other_profile_text = other_profile.text
+        profile_text = (
+            f"{profile.type_of_communication} {profile.talk_contents_title} {profile.other_topic_theme}"
+        )
+        other_profile_text = f"{other_profile.type_of_communication} {other_profile.talk_contents_title} {other_profile.other_topic_theme}"
         tfidf_matrix = extract_tfidf_features([profile_text, other_profile_text])
         tfidf_similarity = cosine_similarity(tfidf_matrix)
 
@@ -77,4 +83,3 @@ def perform_matching(profile):
             matches.append(other_profile)
 
     return matches
-

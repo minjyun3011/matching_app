@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>マッチング完了</title>
-    <!-- ここにスタイルシートのリンクを追加することができます -->
+    <title>マッチ詳細</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles2.css') }}">
 </head>
 <body>
-    <h1>プロフィールが保存されました。ありがとうございます！</h1>
+    <h1>マッチ詳細</h1>
 
-    <h2>マッチしたユーザー:</h2>
-    <ul>
-        {% for match in matches %}
-            <li>
-                名前: {{ match.name }}<br>
-                年齢: {{ match.age }}<br>
-                職業: {{ match.occupation }}<br>
-                興味あるトピック: {{ match.interests }}<br>
-                情報収集手段: {{ match.means }}<br>
-                話したい本のタイトル: {{ match.book_title }}<br>
-                トピックテーマ: {{ match.topic_theme }}<br>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <!-- ここに他のコンテンツやリンクを追加することができます -->
+    {% for profile in profiles %}
+            <h2>プロフィール詳細:</h2>
+            <p>名前: {{ profile.name }}</p>
+            <p>年齢: {{ profile.age }}</p>
+            <p>職業: {{ profile.occupation }}</p>
+            <p>情報収集手段: {{ profile.info_source }}</p>
+            <p>話したい本のタイトル: {{ profile.talk_contents_title }}</p>
+            <p>トピックテーマ: {{ profile.other_topic_theme }}</p>
+    {% endfor %}
+    
 
 </body>
 </html>

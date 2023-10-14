@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from peewee import Model, CharField, SqliteDatabase
 from matching_algorithm import perform_matching
 
-
 app = Flask(__name__)
 
 # データベースの設定
@@ -61,11 +60,14 @@ def submit_profile():
     # マッチングアルゴリズムを実行
     matches = perform_matching(profile)
 
+    
+    return render_template("matching.html", profiles=matches)
     # マッチング結果を"Thank You"ページに渡してリダイレクト
+    matches_str = ",".join(matches)  # マッッチしたユーザーをカンマで結合
     return redirect(
         url_for(
             "thank_you",
-            matches=matches,
+            matches=matches_str,  # マッチング結果を文字列として渡す
             name=name,
             age=age,
             occupation=occupation,

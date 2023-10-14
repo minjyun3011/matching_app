@@ -40,6 +40,9 @@ class Profile(Model):
     class Meta:
         database = db
 
+    def text(self):
+        return f"{self.type_of_communication} {self.talk_contents_title} {self.other_topic_theme}"
+
 
 # データベースのテーブルを作成
 db.create_tables([Profile])
