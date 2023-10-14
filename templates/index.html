@@ -1,37 +1,169 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>プロフィール入力</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-
-</head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="styles.css") }}">
+</head> 
 <body>
     <h1>プロフィール入力</h1>
     <form action="/" method="post">
-        <label for="name">名前:</label>
-        <input type="text" id="name" name="name" required><br>
+<div class="input-container">
+    <div class="input-container_name">
+        <label for="name">名前</label>
+        <input type="text" id="name" name="name" placeholder="15文字以内で入力してください" required>
+        <span id="name-error" class="error-message"></span>
+    </div>
 
-        <label for="age">年齢:</label>
-        <input type="number" id="age" name="age" required><br>
+    <div class="input-container_age">
+        <label for="age">年齢</label>
+        <!-- <input type="text" id="age" name="age" placeholder="選択してください" readonly onclick="showAgeList()">
+            <ul class="age-options"></ul> -->
+            <select name="age" id="age" style="width:100%;">
+                {% for age in range(0,120) %}
+                    <option value="{{ age }}">{{ age }}歳</option>
+                {% endfor %}
+            </select>
+        <span id="age-error" class="error-message"></span>
+    </div>
+</div>
 
-        <label for="occupation">職業:</label>
-        <input type="text" id="occupation" name="occupation" required><br>
+        <label for="occupation">職業</label>
+            <input type="text" id="occupation" name="occupation" placeholder="30文字以内で入力してください" required><br>
+        <span id="occupation-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
-        <label for="info_source">普段どうやって情報や知識をインプットしていますか？:</label>
-        <input type="text" id="info_source" name="info_source" required><br>
+        <label for="info_source">普段どうやって情報や知識をインプットしていますか？</label>
+        <input type="text" id="info_source" name="info_source" placeholder="50文字以内で入力してください" required><br>
+        <span id="info-source-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
-        <label for="type_of_communication">どんなやりとりをお望みですか？:</label>
-        <input type="text" id="type_of_communication" name="type_of_communication" required><br>
+        <label for="type_of_communication">どんなやりとりをお望みですか？</label>
+        <input type="text" id="type_of_communication" name="type_of_communication" placeholder="100文字以内で入力してください" required><br>
+        <span id="type-of-communication-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
         <label for="talk_contents_title">トークテーマにしたいコンテンツのタイトル</label>
-        <input type="text" id="talk_contents_title" name="talk_contents_title" required><br>
+        <input type="text" id="talk_contents_title" name="talk_contents_title" placeholder="50文字以内で入力してください" required><br>
+        <span id="talk-contents-title-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
-        <label for="your_objection">どんな目標があなたにはありますか？:</label>
-        <textarea id="your_objection" name="your_objection" rows="3" required></textarea><br>
+        <label for="your_objection">どんな夢があなたにはありますか？</label>
+        <textarea id="your_objection" name="your_objection" rows="3" placeholder="ここはご自由に熱く語ってください！" required></textarea><br>
+        <span id="your-objection-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
-        <label for="other_topic_theme">トピックテーマ:</label>
-        <textarea id="other_topic_theme" name="other_topic_theme" rows="2" required></textarea><br>
+        <label for="other_topic_theme">その他にお話ししたいトピックテーマ</label>
+        <textarea id="other_topic_theme" name="other_topic_theme" rows="2" placeholder="ここもご自由に！" required></textarea><br>
+        <span id="other-topic-theme-error" class="error-message"></span><!-- エラーメッセージを表示する要素 -->
 
         <input type="submit" value="プロフィールを保存">
     </form>
+
+    <script>
+        const nameInput = document.getElementById("name");
+        const nameError = document.getElementById("name-error");
+        let currentAge = 0;
+const ageOptions = document.querySelector(".age-options");
+for (let i = 0; i <= 150; i++) {
+    const listItem = document.createElement("li");
+    listItem.innerText = currentAge + "歳";
+    ageOptions.appendChild(listItem);
+    currentAge++;
+}
+
+function showAgeList() {
+    const ageList = document.querySelector(".age-options");
+    if (ageList.style.display === "none" || ageList.style.display === "") {
+        ageList.style.display = "block";
+    } else {
+        ageList.style.display = "none";
+    }
+}
+
+ageOptions.addEventListener("click", function (event) {
+    if (event.target && event.target.nodeName === "LI") {
+        document.getElementById("age").value = event.target.textContent;
+        document.querySelector(".age-options").style.display = "none";
+    }
+});
+
+        const infoSourceInput = document.getElementById("info_source");
+        const infoSourceError = document.getElementById("info-source-error");
+        const typeOfCommunicationInput = document.getElementById("type_of_communication");
+        const typeOfCommunicationError = document.getElementById("type-of-communication-error");
+        const talkContentsTitleInput = document.getElementById("talk_contents_title");
+        const talkContentsTitleError = document.getElementById("talk-contents-title-error");
+        const yourObjectionInput = document.getElementById("your_objection");
+        const yourObjectionError = document.getElementById("your-objection-error");
+        const otherTopicThemeInput = document.getElementById("other_topic_theme");
+        const otherTopicThemeError = document.getElementById("other-topic-theme-error");
+
+        nameInput.addEventListener("input", function () {
+            if (nameInput.value.length > 15) {
+                nameError.textContent = "名前は15文字以内で入力してください";
+                nameInput.setCustomValidity("名前は15文字以内で入力してください");
+            } else {
+                nameError.textContent = "";
+                nameInput.setCustomValidity("");
+            }
+        });
+
+        ageInput.addEventListener("focus", function () {
+            // 年齢リストを表示
+            ageList.innerHTML = ""; // 既存のリストをクリア
+            for (let age = 0; age <= 150; age++) {
+                const listItem = document.createElement("li");
+                listItem.textContent = age;
+                listItem.addEventListener("click", function () {
+                    ageInput.value = age;
+                    ageList.innerHTML = ""; // リストを非表示
+                });
+                ageList.appendChild(listItem);
+            }
+            ageDropdown.classList.add("active");
+        });
+
+        ageInput.addEventListener("blur", function () {
+            // 年齢リストを非表示
+            ageDropdown.classList.remove("active");
+        });
+
+        occupationInput.addEventListener("input", function () {
+    if (occupationInput.value.length > 30) {
+        occupationError.textContent = "職業は30文字以内で入力してください";
+        occupationInput.setCustomValidity("職業は30文字以内で入力してください");
+    } else {
+        occupationError.textContent = ""; // エラーメッセージをクリア
+        occupationInput.setCustomValidity(""); // カスタムエラーメッセージをクリア
+    }
+});
+
+
+        info_source.addEventListener("input" , function () {
+            if (info_source.value.length > 50) {
+                info_sourceError.textContent = "50文字以内で入力してください";
+                info_spurceInput.setCustomValidity("50文字以内で入力してください");
+            } else {
+                info_sourceError.textContent = "";
+                info_sourceInput.setCustomValidity("");
+            }
+        });
+
+        typeOfCommunicationInput.addEventListener("input", function () {
+    if (typeOfCommunicationInput.value.length > 30) {
+        typeOfCommunicationError.textContent = "100文字以内で入力してください";
+        typeOfCommunicationInput.setCustomValidity("100文字以内で入力してください");
+    } else {
+        typeOfCommunicationError.textContent = "";
+        typeOfCommunicationInput.setCustomValidity("");
+    }
+});
+
+talkContentsTitleInput.addEventListener("input", function () {
+    if (talkContentsTitleInput.value.length > 50) {
+        talkContentsTitleError.textContent = "50文字以内で入力してください";
+        talkContentsTitleInput.setCustomValidity("50文字以内で入力してください");
+    } else {
+        talkContentsTitleError.textContent = "";
+        talkContentsTitleInput.setCustomValidity("");
+    }
+});
+
+    </script>
 </body>
 </html>
